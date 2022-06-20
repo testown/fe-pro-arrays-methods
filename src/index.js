@@ -61,15 +61,32 @@ const osFilter = (os) => {
  * @param {number} to
  */
 const rangeFilter = (from, to) => {
-  return goods.filter((item) => item.price > from && item.price < to);
+  return goods.filter((item) => item.price >= from && item.price <= to);
 };
 
-const minPriceReducer = () => {};
+const minPriceReducer = () => {
+  return goods.reduce((akkum, item) => item.price < akkum ? item.price : akkum, goods[0].price);
+};
 
-const maxPriceReducer = () => {};
+const maxPriceReducer = () => {
+  return goods.reduce((akkum, item) => akkum > item.price ? akkum : item.price, goods[0].price);
+};
 
-const toMaxSorter = () => {};
-const toMinSorter = () => {};
+const toMaxSorter = () => {
+  return goods.sort((first, second) => {
+    if (first.price > second.price) return 1;
+    if (first.price < second.price) return -1;
+    return 0;
+  });
+};
+
+const toMinSorter = () => {
+  return goods.sort((first, second) => {
+    if (first.price > second.price) return -1;
+    if (first.price < second.price) return 1;
+    return 0;
+  });
+};
 
 export const filters = {
   brandFilter,
